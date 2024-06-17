@@ -3,7 +3,7 @@ name: Build
 env:
   Solution: .
   Configuration: Release
-  Artifacts: build/${{env.Configuration}}
+  Artifacts: build/Release
   Branch: $env:GITHUB_REF_NAME"
   
 on:
