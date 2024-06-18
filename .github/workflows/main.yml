@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  Solution: all.sln
+  Solution: .
   Configuration: Release
   Artifacts: build/Release
   Branch: $env:GITHUB_REF_NAME"
@@ -30,9 +30,12 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Build
+    - name: Generate
       run: |
         "${{github.workspace}}/gen_all.bat"
+        
+    - name: Build
+      run: |
         nuget restore ${{env.Solution}}
         msbuild /m /p:Configuration=${{env.Configuration}} ${{env.Solution}}
 
