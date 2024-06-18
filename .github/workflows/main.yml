@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  Solution: .
+  Solution: all.sln
   Configuration: Release
   Artifacts: build/Release
   Branch: $env:GITHUB_REF_NAME"
