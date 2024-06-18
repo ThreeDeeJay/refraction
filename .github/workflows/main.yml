@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  Solution: .
+  Solution: all.sln
   Configuration: Release
   Artifacts: build/Release
   Branch: $env:GITHUB_REF_NAME"
@@ -31,7 +31,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
 
     - name: Build
-      run: "${{github.workspace}}/gen_all.bat"
+      run: |
+        "${{github.workspace}}/gen_all.bat"
+        nuget restore ${{env.Solution}}
+        msbuild /m /p:Configuration=${{env.Configuration}} ${{env.Solution}}
 
     - name: Upload Installer Artifact to GitHub
       uses: actions/upload-artifact@v2
