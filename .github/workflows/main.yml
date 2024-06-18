@@ -32,6 +32,14 @@ jobs:
     - name: Build
       run: "${{github.workspace}}/gen_all.bat"
 
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.Solution}}
+
+    - name: Build
+      run: msbuild /m /p:Configuration=${{env.Configuration}} ${{env.Solution}}
+
     - name: Upload Installer Artifact to GitHub
       uses: actions/upload-artifact@v2
       with:
